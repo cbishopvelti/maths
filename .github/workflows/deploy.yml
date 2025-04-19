@@ -22,6 +22,7 @@ jobs:
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
           DISABLE_ESLINT_PLUGIN: true
+          PUBLIC_URL: /maths/
         run: |
           npm run build -W
       - name: Upload Artifacts
