@@ -81,7 +81,7 @@ const part4 = (ctx, opts) => {
   renderText(ctx, {...opts, strokeStyle: 'gray'}, {
     x: 5.5,
     y: 6,
-    text: r
+    text: round(r, 2)
   })
   // EO R
 
