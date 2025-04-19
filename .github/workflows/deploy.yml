@@ -21,7 +21,7 @@ jobs:
       - name: build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
-          process.env.CI: false
+          DISABLE_ESLINT_PLUGIN: true
         run: |
           npm run build -W
       - name: Upload Artifacts
