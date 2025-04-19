@@ -28,7 +28,7 @@ function App() {
         <ul>
           <li>
             {/* Use Link component for client-side navigation */}
-            <Link to="/week1">Week 1</Link>
+            <Link to="/week1/1">Week 1</Link>
           </li>
         </ul>
       </nav>
