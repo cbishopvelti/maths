@@ -70,7 +70,7 @@ const part3 = (ctx, opts) => {
 }
 
 const part4 = (ctx, opts) => {
-  opts.scale = 20;
+  opts.scale = 26;
 
   drawAxis(ctx, opts);
 
