@@ -25,7 +25,11 @@ function App() {
   return (
     <div className="App">
       <nav>
-        <ul>
+        <ul style={{
+          listStyle: "none", /* Remove default bullets */
+          display: "flex",    /* Make the ul a flex container */
+          gap: "15px" /* Adjust space as needed */
+        }}>
           <li>
             {/* Use Link component for client-side navigation */}
             <Link to="/week1/1">Week 1</Link>

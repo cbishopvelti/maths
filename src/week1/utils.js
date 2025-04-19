@@ -1,4 +1,4 @@
-import { groupBy, values, filter, cloneDeep } from 'lodash';
+import { groupBy, values, filter, cloneDeep, first, last } from 'lodash';
 
 export const calculateLinePoints = ([start, end]) => {
   const points = [];
@@ -10,7 +10,7 @@ export const calculateLinePoints = ([start, end]) => {
 }
 
 export const calculateCirclePoints = (y, opts = {
-  step: 0.001,
+  step: 0.01,
   start: -50,
   end: 50
 }) => {
@@ -69,6 +69,10 @@ export const renderPoints = (ctx, opts, points) => {
 
 
   const toRender = values(groupBy(points, 'i'));
+  // if(toRender.length >= 2 && toRender.length <= 3) { // complete circle
+  //   toRender[0].unshift(first(toRender[1]))
+  //   toRender[0].push(last(toRender[0]))
+  // }
 
   toRender.map((points) => {
     points = scalePoints(cloneDeep(points), opts);

@@ -224,9 +224,12 @@ export const Week1 = () => {
 
   return (
     <div>
-      <h1>Week 1</h1>
       <nav>
-        <ul>
+        <ul style={{
+          listStyle: "none", /* Remove default bullets */
+          display: "flex",    /* Make the ul a flex container */
+          gap: "15px" /* Adjust space as needed */
+        }}>
           <li><Link to="/week1/1">Part 1</Link></li>
           <li><Link to="/week1/2">Part 2</Link></li>
           <li><Link to="/week1/3">Part 3</Link></li>
