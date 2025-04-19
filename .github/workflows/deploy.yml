@@ -22,7 +22,7 @@ jobs:
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
         run: |
-          npm run build
+          npm run build -W
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
