@@ -23,7 +23,7 @@ const part1 = (ctx, opts) => {
     x: 0,
     y: 0.6,
     i: 'result',
-    text: '+-Math.sqrt(0.25 - Math.pow(x - 0.5, 2)) + 0'
+    text: '+-Math.sqrt(0.25 - Math.pow(x, 2)) + 0.5'
   })
 
   renderPoints(ctx, opts, points)
@@ -32,8 +32,8 @@ const part1 = (ctx, opts) => {
 const part2 = (ctx, opts) => {
   drawAxis(ctx, opts)
   let y = (x) => [
-    Math.sqrt(0.25 - Math.pow(x, 2)) + 1,
-    -Math.sqrt(0.25 - Math.pow(x, 2)) + 1,
+    Math.sqrt(0.25 - Math.pow(x - 0.5, 2)) + 0.5,
+    -Math.sqrt(0.25 - Math.pow(x - 0.5, 2)) + 0.5,
   ];
 
   const points = calculateCirclePoints(y)
