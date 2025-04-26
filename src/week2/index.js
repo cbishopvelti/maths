@@ -192,7 +192,12 @@ const part6 = (ctx, opts) => {
   renderPoints(ctx, {
     ...opts,
     strokeStyle: 'orange'
-  }, points);
+  }, [...points, {
+    x: center.x - 1.2,
+    y: center.y - 0.6,
+    i: 'result',
+    text: `(x - center.x)**2 / a_sq + (y - center.y)**2 / b_sq = 1`
+  }]);
 }
 
 const part7 = (ctx, opts) => {
@@ -226,7 +231,12 @@ const part7 = (ctx, opts) => {
   renderPoints(ctx, {
     ...opts,
     strokeStyle: 'black'
-  }, points);
+  }, [...points, {
+    x: center.x - 1.2,
+    y: center.y - 0.8,
+    i: 'result',
+    text: `(x - center.x)**2 / a_sq + (y - center.y)**2 / b_sq = 1`
+  }]);
 }
 
 const localRender = (ctx, opts) => {
