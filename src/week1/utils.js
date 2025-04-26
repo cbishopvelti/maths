@@ -9,7 +9,7 @@ export const calculateLinePoints = ([start, end]) => {
   return points;
 }
 
-export const calculateCirclePoints = (y, opts = {
+export const calculatePoints = (y, opts = {
   step: 0.01,
   start: -50,
   end: 50
@@ -36,8 +36,8 @@ export const calculateCirclePoints = (y, opts = {
 
 const scalePoints = (points, opts) => {
   const { width, height } = opts;
-  const scaleX = (x) => x * opts.scale + (opts.width / 2);
-  const scaleY = (y) => y * opts.scale
+  const scaleX = (x) => (x + opts.offsetX) * opts.scale + (opts.width / 2);
+  const scaleY = (y) => (y + opts.offsetY) * opts.scale
     * opts.scaleY
     + (opts.height / 2);
 
@@ -59,6 +59,7 @@ export const renderText = (ctx, opts, point) => {
   ctx.fillText(point.text, point.x, point.y);
 }
 
+
 export const renderPoints = (ctx, opts, points) => {
   // Draw the function
   ctx.beginPath();
@@ -73,7 +74,7 @@ export const renderPoints = (ctx, opts, points) => {
   //   toRender[0].unshift(first(toRender[1]))
   //   toRender[0].push(last(toRender[0]))
   // }
-
+  
   toRender.map((points) => {
     points = scalePoints(cloneDeep(points), opts);
 
