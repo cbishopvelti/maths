@@ -30,6 +30,7 @@ const part1 = (ctx, opts) => {
 }
 
 const part2 = (ctx, opts) => {
+  // (x-0.5)^2 + (y-0.5)^2 = 0.25
   drawAxis(ctx, opts)
   let y = (x) => [
     Math.sqrt(0.25 - Math.pow(x - 0.5, 2)) + 0.5,
@@ -130,7 +131,7 @@ const part5 = (ctx, opts) => {
 
 
   // A
-  // (x + 2)^2 + (y - 1)^2 = 4
+  // (x + 2)^2 + (y + 1)^2 = 4
   let y = (x) => [
     Math.sqrt(4 - Math.pow((x + 2), 2)) - 1,
     -Math.sqrt(4 - (x + 2) ** 2) - 1
