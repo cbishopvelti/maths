@@ -262,14 +262,13 @@ const getYAxisLabels = opts => {
 }
 
 export const drawAxis = (ctx, opts) => {
-
   // Xaxis
   renderPoints(
     ctx,
     {
       ...opts,
       strokeStyle: 'blue',
-      offsetY: opts.offsetY + opts.axisOffsetY
+      offsetY: (opts.offsetY || 0) + (opts.axisOffsetY || 0)
     },
     [
       ...getXAxisLabels(opts),
@@ -284,7 +283,6 @@ export const drawAxis = (ctx, opts) => {
       }]
     ]
   );
-
   // Yaxis
   renderPoints(
     ctx,
@@ -307,20 +305,18 @@ export const drawAxis = (ctx, opts) => {
   );
 
 
-  ctx.beginPath();
+
 
   ctx.strokeStyle = 'blue';
   // Y Axis
   // ctx.moveTo(opts.width / 2, 0);
   // ctx.lineTo(opts.width / 2, opts.height);
 
-  
+
 
   // X Axis
   // ctx.moveTo(0, opts.height / 2);
   // ctx.lineTo(opts.width, opts.height / 2);
-
-  
 
   ctx.stroke();
 };
