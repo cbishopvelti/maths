@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getContext, render } from '../app/render';
 import { drawAxis } from '../app/utils';
-import { calculateCirclePoints, calculateLinePoints, renderPoints, renderText} from './utils';
+import { calculatePoints, calculateLinePoints, renderPoints, renderText} from './utils';
 import { Link, useParams } from 'react-router-dom';
 import { random, flatten, round } from 'lodash';
 
@@ -17,7 +17,7 @@ const part1 = (ctx, opts) => {
     -Math.sqrt(0.25 - Math.pow(x, 2)) + 0.5,
   ];
 
-  const points = calculateCirclePoints(y)
+  const points = calculatePoints(y)
 
   points.push({
     x: 0,
@@ -37,7 +37,7 @@ const part2 = (ctx, opts) => {
     -Math.sqrt(0.25 - Math.pow(x - 0.5, 2)) + 0.5,
   ];
 
-  const points = calculateCirclePoints(y)
+  const points = calculatePoints(y)
 
   points.push({
     x: 0,
@@ -58,7 +58,7 @@ const part3 = (ctx, opts) => {
     -Math.sqrt(9 - Math.pow(x - 4, 2)) + 6,
   ];
   drawAxis(ctx, opts);
-  const points = calculateCirclePoints(y)
+  const points = calculatePoints(y)
 
   points.push({
     x: 2,
@@ -92,14 +92,14 @@ const part4 = (ctx, opts) => {
     Math.sqrt(5 - Math.pow(x - 6, 2)) + 5,
     -Math.sqrt(5 - Math.pow(x - 6, 2)) + 5
   ];
-  const points2 = calculateCirclePoints(y)
+  const points2 = calculatePoints(y)
   renderPoints(ctx, opts, points2)
 
   //dy/dx = 5-7 / 6-5 = -2x = -1 = 1/2
   // 7 = (1/2) * 5 + c = 7 - (1/2 * 5) = 4.5
   // y = 1/2x + 4.5
   const y2 = (x) => [(1/2) * x + 4.5];
-  const points3 = calculateCirclePoints(y2)
+  const points3 = calculatePoints(y2)
   renderPoints(ctx, opts, points3)
   renderText(ctx, opts, {
     x: 4,
@@ -112,7 +112,7 @@ const part4 = (ctx, opts) => {
   const m = -1 / ((5 - point.y) / (6 - point.x));
   const c = point.y - (m * point.x);
   let y3 = (x) => [m * x + c];
-  const points4 = calculateCirclePoints(y3)
+  const points4 = calculatePoints(y3)
   renderPoints(ctx, {...opts, strokeStyle: 'purple'}, points4)
   renderText(ctx, {...opts, strokeStyle: 'purple'}, {
     x: point.x,
@@ -136,7 +136,7 @@ const part5 = (ctx, opts) => {
     Math.sqrt(4 - Math.pow((x + 2), 2)) - 1,
     -Math.sqrt(4 - (x + 2) ** 2) - 1
   ]
-  const points = calculateCirclePoints(y);
+  const points = calculatePoints(y);
   renderPoints(ctx, opts, points);
 
   const angle = 2 * Math.atan(2 / 3);
@@ -147,7 +147,7 @@ const part5 = (ctx, opts) => {
   let y2 = (x) => [
     (m * x) + c
   ]
-  const points2 = calculateCirclePoints(y2);
+  const points2 = calculatePoints(y2);
   renderPoints(ctx, opts, points2);
   const yb = 1 - (Math.sin(angle) * 3);
   const xb = 1 - (Math.cos(angle) * 3);
@@ -167,7 +167,7 @@ const part5 = (ctx, opts) => {
     Math.sqrt(0.25 - Math.pow((x + 2), 2)) +0.5,
     -Math.sqrt(0.25 - (x + 2) ** 2) + 0.5
   ]
-  const points3 = calculateCirclePoints(y3);
+  const points3 = calculatePoints(y3);
   renderPoints(ctx, opts2, points3);
 
   const angle2 = 2 * Math.atan(0.5 / 3);
@@ -178,7 +178,7 @@ const part5 = (ctx, opts) => {
   let y4 = (x) => [
     (m2 * x) + c2
   ]
-  const points4 = calculateCirclePoints(y4);
+  const points4 = calculatePoints(y4);
   renderPoints(ctx, opts2, points4);
   const yb2 = 1 - (Math.sin(angle2) * 3);
   const xb2 = 1 - (Math.cos(angle2) * 3);
