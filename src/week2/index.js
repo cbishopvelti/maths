@@ -9,7 +9,7 @@ import { solve, solve2 } from './utils';
 
 
 const part1 = (ctx, opts) => {
- 
+
   let t1y = (x) => [
     2*x + 4,
     -0.5 * x + 10
@@ -68,7 +68,7 @@ const part2 = (ctx, opts) => {
 }
 
 const part3 = (ctx, opts,) => {
-  
+
 
   let points = [];
   points.push({
@@ -106,7 +106,7 @@ const part3 = (ctx, opts,) => {
   // const points2 = calculatePoints((x) => [8.67]);
   // renderPoints(
   //   ctx,
-  //   {...opts, strokeStyle: 'gray'}, 
+  //   {...opts, strokeStyle: 'gray'},
   //   points2
   // );
 }
@@ -148,7 +148,7 @@ const part5 = (ctx, opts) => {
   const S = getS();
   renderPoints(ctx, {
     ...opts,
-    strokeStyle: 'yellow',
+    strokeStyle: 'yellowgreen',
   }, [{
     ...S,
     text: `S:(${round(S.x, 2)}, ${round(S.y, 2)})`
@@ -170,13 +170,13 @@ const part6 = (ctx, opts) => {
 
   // y = 2x - 1
   // y = -0.5x + 0.5
-  
+
   // (ellipse) x**2 / a**2 + y**2 / b**2 = 1
   // (1) (-1)**2 = a**2 * 2**2 + b**2
   // (2) 0.5**2 = a**2 * (-0.5)**2 + b**2
   // a**2 = 0.2, b**2 = 0.2
   const {a_sq, b_sq} = solve2(2, -1, -0.5, 0.5);
-  
+
 
   // (x - center.x)**2 / a_sq + (y - center.y)**2 / b_sq = 1
   // (y - center.y)**2 / a_sq = 1 - (x - center.x)**2 / b_sq
