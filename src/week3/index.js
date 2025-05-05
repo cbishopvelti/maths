@@ -126,13 +126,10 @@ const part4 = (ctx, opts) => {
   const eq2_expr = nerdamer(`${m_sq} * a_sq + b_sq = ${c_sq}`)
 
   const b_sq_expr = eq2_expr.solveFor('b_sq');
-  console.log("001", b_sq_expr.toString());
 
   const eq1_substituted = eq1_expr.sub('b_sq', b_sq_expr[0])
-  console.log("002", eq1_substituted.toString());
 
   const a_sq_solutions = eq1_substituted.solveFor('a_sq');
-  console.log('003', a_sq_solutions.toString()); // Should be ['1/2']
 
   const a_sq_val = a_sq_solutions[0]
   const eq2_expr_substituted = eq2_expr.sub("a_sq", a_sq_val)
@@ -245,6 +242,7 @@ export const Week3 = () => {
               onChange={(a) => onChange('4')(a)} />
           </li>
         </ul>
+        <a target="_blank" rel="noreferrer" style={{marginLeft: '40px'}} href="https://github.com/cbishopvelti/maths/blob/master/src/week3/index.js">The code</a>
       </nav>
       <canvas ref={canvasRef} width={opts.width} height={opts.height} />
     </div>
