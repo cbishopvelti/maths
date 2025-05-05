@@ -239,6 +239,39 @@ const part7 = (ctx, opts) => {
   }]);
 }
 
+
+// Copied from part7
+const part8 = (ctx, opts) => {
+  const center = {
+    ...getS(),
+    y: getS().y - 0.1
+  };
+  const P = solve(2, 4, -0.5, 10);
+  const newP = {
+    x: P.x - center.x,
+    y: P.y - center.y
+  }
+  const c1 = newP.y - (newP.x * 2)
+  const c2 = newP.y - newP.x * -0.5
+
+  const {a_sq, b_sq} = solve2(2, c1, -0.5, c2);
+
+  let y = (x) => [
+    Math.sqrt(a_sq - ((x - center.x)**2 * a_sq) / b_sq) + center.y,
+    - Math.sqrt(a_sq - ((x - center.x)**2 * a_sq) / b_sq) + center.y
+  ]
+  const points = calculatePoints(y);
+  renderPoints(ctx, {
+    ...opts,
+    strokeStyle: 'black'
+  }, [...points, {
+    x: center.x - 1.2,
+    y: center.y - 0.8,
+    i: 'result',
+    text: `(x - center.x)**2 / a_sq + (y - center.y)**2 / b_sq = 1`
+  }]);
+}
+
 const localRender = (ctx, opts) => {
 
   drawAxis(ctx, opts)
@@ -250,11 +283,12 @@ const localRender = (ctx, opts) => {
   includes(opts.parts,'5') && part5(ctx, opts);
   includes(opts.parts,'6') && part6(ctx, opts);
   includes(opts.parts,'7') && part7(ctx, opts);
+  includes(opts.parts,'8') && part8(ctx, opts);
 }
 
 export const Week2 = () => {
   const { part } = useParams();
-  const [ parts, setParts ] = useState(['1', /* '2', '3', '4', '5' */ /*, '6', '7' */]);
+  const [ parts, setParts ] = useState(['1', /* '2', '3', '4', '5' */ /*, '6', '7' */ '8']);
 
   const canvasRef = useRef(null)
   const [renderCount, setRenderCount] = useState(0);
@@ -353,6 +387,14 @@ export const Week2 = () => {
               id="part7"
               checked={includes(parts, '7')}
               onChange={(a) => onChange('7')(a)} />
+          </li>
+          <li>
+            <label htmlFor="part8">part 8</label>
+            <input
+              type="checkbox"
+              id="part8"
+              checked={includes(parts, '8')}
+              onChange={(a) => onChange('8')(a)} />
           </li>
         </ul>
       </nav>

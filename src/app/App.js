@@ -4,6 +4,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { render } from './render';
 import { Week1 } from '../week1';
 import { Week2 } from '../week2';
+import { Week3 } from '../week3';
 
 function App() {
 
@@ -38,6 +39,9 @@ function App() {
           <li>
             <Link to="/week2/1">Week 2</Link>
           </li>
+          <li>
+            <Link to="/week3/1">Week 3</Link>
+          </li>
         </ul>
       </nav>
       {/* <canvas ref={canvasRef} id="canvas"
@@ -47,6 +51,7 @@ function App() {
       <Routes>
         <Route path="/week1/:part" element={<Week1 />} />
         <Route path="/week2/:part" element={<Week2 />} />
+        <Route path="/week3/:part" element={<Week3 />} />
       </Routes>
     </div>
   );
