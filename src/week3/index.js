@@ -176,7 +176,7 @@ const localRender = (ctx, opts) => {
 
 export const Week3 = () => {
   const { part } = useParams();
-  const [ parts, setParts ] = useState(['2', '3', '4']);
+  const [ parts, setParts ] = useState(['2']);
 
   const canvasRef = useRef(null)
   const [renderCount, setRenderCount] = useState(0);
