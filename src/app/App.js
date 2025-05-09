@@ -57,14 +57,17 @@ function App() {
           <li>
             <Link to="/notes1">Notes</Link>
           </li>
+          <li>
+            <Link to="/ellipse_solver">Ellipse Solver</Link>
+          </li>
         </ul>
       </nav>
       <Routes>
         <Route path="/week1/:part" element={<Week1 />} />
         <Route path="/week2/:part" element={<Week2 />} />
         <Route path="/week3/:part" element={<Week3 />} />
-        <Route path="/ellipse_solver/:part" element={<EllipseSolver />} />
         <Route path="/notes1" element={<Notes />} />
+        <Route path="/ellipse_solver" element={<EllipseSolver />} />
       </Routes>
     </div>
   );
