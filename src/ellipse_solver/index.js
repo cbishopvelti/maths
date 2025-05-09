@@ -98,9 +98,9 @@ const solver = (ctx, opts, args) => {
   }, [
     ...m1points,
     {
-      x: x2,
-      y: y2,
-      text: "/Point",
+      x: x3,
+      y: y3,
+      text: `/(${x3},${y3})`,
       i: "res"
     }
   ]);
