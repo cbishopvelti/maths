@@ -219,7 +219,7 @@ export const EllipseSolver = () => {
           }}>
 
           </ul>
-          <a target="_blank" rel="noreferrer" style={{marginLeft: '40px'}} href="https://github.com/cbishopvelti/maths/blob/master/src/week3/index.js">The code</a>
+          <a target="_blank" rel="noreferrer" style={{marginLeft: '40px'}} href="https://github.com/cbishopvelti/maths/blob/master/src/ellipse_solver/index.js">The code</a>
         </nav>
         <canvas ref={canvasRef} width={opts.width} height={opts.height} />
       </div>
