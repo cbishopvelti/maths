@@ -12,6 +12,7 @@ import 'nerdamer/Solve';
 import { solve } from '../week2/utils';
 import { e } from 'mathjs';
 import Algibrite from 'algebrite';
+// import { greeting, logGreeting } from 'Lib';
 
 const part2 = (ctx, opts) => {
   // ELLIPSE

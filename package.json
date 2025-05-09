@@ -8,10 +8,15 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "algebrite": "^1.4.0",
+    "customize-cra": "^1.0.0",
+    "i": "^0.3.7",
     "lodash": "^4.17.21",
     "mathjs": "^14.4.0",
+    "mathlive": "^0.105.2",
     "nerdamer": "^1.1.13",
+    "npm": "^11.3.0",
     "react": "^19.1.0",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.5.0",
     "react-scripts": "5.0.1",
@@ -20,9 +25,14 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && shx cp build/index.html build/404.html",
+    "start2": "react-app-rewired start",
+    "dev": "concurrently \"spago build --watch\" \"react-app-rewired start\"",
+    "build": "react-app-rewired build && shx cp build/index.html build/404.html",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "ps:build": "spago build",
+    "ps:watch": "spago build --watch",
+    "ps:bundle": "spago bundle-app --main Lib --to output/bundle.js"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "shx": "^0.4.0"
   }
 }
