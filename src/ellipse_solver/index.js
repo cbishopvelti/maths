@@ -11,22 +11,21 @@ import 'nerdamer/Solve';
 import { solve } from '../week2/utils';
 import { e } from 'mathjs';
 import Algibrite from 'algebrite';
+import { solver3 } from './solution3';
 // import { greeting, logGreeting } from 'Lib';
 
 nerdamer.set('SOLUTIONS_AS_OBJECT', true)
 
 // https://en.wikipedia.org/wiki/Eccentricity_(mathematics)
 const solver2 = (ctx, opts, args) => {
-  nerdamer.set("MAX_SOLVE_DEPTH", 10_000);
+  // nerdamer.set("MAX_SOLVE_DEPTH", 10_000);
   const x1 = args.x1;
   const y1 = args.y1
   const m1 = args.m1
   const x2 = args.x2;
   const y2 = args.y2
   const m2 = args.m2
-  const e = 0.5
-  const x3 = args.x3;
-  const y3 = args.y3
+
   // nerdamer.set("suppress_errors", true)
   // A*${x1**2} + B*${x1*y1} + C*${y1**2} + D*${x1} + E*${y1} = 1
   const eq1_expr = nerdamer(`A*${x1**2} + B*${x1*y1} + C*${y1**2} + D*${x1} + F*${y1} = 1`)
@@ -248,13 +247,15 @@ const localRender = (ctx, opts, args) => {
   // solver(ctx, opts, args)
   includes(opts.parts, '1') && solver(ctx, opts, args);
   includes(opts.parts, '2') && solver2(ctx, opts, args)
+  includes(opts.parts, '3') && solver3(ctx, opts, args)
 }
 
 export const EllipseSolver = () => {
   const { part } = useParams();
   const [ parts, setParts ] = useState([
-    '1',
-    // '2'
+    // '1',
+    // '2',
+    '3'
   ]);
 
   const canvasRef = useRef(null)
@@ -357,6 +358,14 @@ export const EllipseSolver = () => {
                 id="part2"
                 checked={includes(parts, '2')}
                 onChange={(a) => onChange('2')(a)} />
+            </li>
+            <li>
+              <label htmlFor="part3">part 3</label>
+              <input
+                type="checkbox"
+                id="part3"
+                checked={includes(parts, '3')}
+                onChange={(a) => onChange('3')(a)} />
             </li>
           </ul>
           <a target="_blank" rel="noreferrer" style={{marginLeft: '40px'}} href="https://github.com/cbishopvelti/maths/blob/master/src/ellipse_solver/index.js">The code</a>
