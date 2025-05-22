@@ -1,6 +1,7 @@
-import nerdamer, {solveEquations, diff} from 'nerdamer';
+import nerdamer, {solveEquations, diff} from 'nerdamer'; // solveEquations will be replaced for the main 5-equation system
 import 'nerdamer/Algebra';
 import 'nerdamer/Solve';
+const { solve } = require('./gaussian_elimination.js'); // Our new solver
 import { calculatePoints, renderPoints } from '../week1/utils';
 import { map } from 'lodash';
 
@@ -68,19 +69,39 @@ export const solver3 = (ctx, opts, args) => {
   const Dx = ((Mx - Vx) / MV) * (MV + MD) + Vx
   const Dy = ((My - Vy) / MV) * (MV + MD) + Vy
 
-  const eq5_expr = nerdamer(`A*${Dx**2} + B*${Dx*Dy} + C*${Dy**2} + D*${Dx} + F*${Dy} = 1`)
+  const eq5_expr = nerdamer(`A*${Dx**2} + B*${Dx*Dy} + C*${Dy**2} + D*${Dx} + F*${Dy} = 1`) // This is just for reference of the 5th equation's origin.
 
-  console.time("002")
-  const results = solveEquations([
-    eq1_expr.toString(),
-    eq3_expr.toString(),
-    eq2_expr.toString(),
-    eq4_expr.toString(),
-    eq5_expr.toString(),
-  ]/* , ['A', 'B', 'C', 'D', 'F'] */)
-  console.timeEnd("002")
+  console.time("gaussian_solve_002");
+  // Construct the augmented matrix for the system of 5 linear equations
+  // Variables: [A, B, C, D, F]
+  // Note the order of equations here matches the original solveEquations call: eq1, eq3, eq2, eq4, eq5
+  const matrix = [
+    [x1**2, x1*y1, y1**2, x1, y1, 1],                             // Eq1: A*x1^2 + B*x1*y1 + C*y1^2 + D*x1 + F*y1 = 1
+    [x2**2, x2*y2, y2**2, x2, y2, 1],                             // Eq3: A*x2^2 + B*x2*y2 + C*y2^2 + D*x2 + F*y2 = 1
+    [-2*x1, y1 - m1*x1, -2*m1*y1, 1, -m1, 0],                     // Eq2: A*(-2*x1) + B*(y1 - m1*x1) + C*(-2*m1*y1) + D*(1) + F*(-m1) = 0
+    [-2*x2, y2 - m2*x2, -2*m2*y2, 1, -m2, 0],                     // Eq4: A*(-2*x2) + B*(y2 - m2*x2) + C*(-2*m2*y2) + D*(1) + F*(-m2) = 0
+    [Dx**2, Dx*Dy, Dy**2, Dx, Dy, 1]                               // Eq5: A*Dx^2 + B*Dx*Dy + C*Dy^2 + D*Dx + F*Dy = 1
+  ];
 
-  console.log("002", results)
+  const solution = solve(matrix);
+  let results = {};
+
+  if (solution && solution.length === 5) {
+    results = {
+      A: solution[0],
+      B: solution[1],
+      C: solution[2],
+      D: solution[3],
+      F: solution[4]
+    };
+  } else {
+    console.error("Gaussian elimination did not find a unique solution in solver3.", solution);
+    // Fallback to prevent crashes, visualization will be incorrect.
+    results = { A: 0, B: 0, C: 0, D: 0, F: 0 };
+  }
+  console.timeEnd("gaussian_solve_002");
+
+  console.log("Custom solve results (solver3):", results);
 
   const eq = nerdamer(`A*x^2 + B*x*y + C*y^2 + D*x + F*y = 1`, results)
   const eqy = eq.solveFor('y')
