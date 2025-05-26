@@ -2,7 +2,8 @@ import nerdamer, {solveEquations, diff} from 'nerdamer';
 import 'nerdamer/Algebra';
 import 'nerdamer/Solve';
 import { calculatePoints, renderPoints } from '../week1/utils';
-import { map } from 'lodash';
+import { map, zipObject } from 'lodash';
+import { gaussianElimination } from '../week5/gaussian_elimination';
 
 
 const distance = (x1, y1, x2, y2) => {
@@ -43,15 +44,22 @@ export const solver3 = (ctx, opts, args) => {
   // nerdamer.set("suppress_errors", true)
   // A*${x1**2} + B*${x1*y1} + C*${y1**2} + D*${x1} + E*${y1} = 1
   const eq1_expr = nerdamer(`A*${x1**2} + B*${x1*y1} + C*${y1**2} + D*${x1} + F*${y1} = 1`)
+  //             A,       B        C        D   F
+  const eq1_g = [x1 ** 2, x1 * y1, y1 ** 2, x1, y1, 1];
   // (2x₁)A + (m₁x₁ + y₁)B   + (2m₁y₁)C   + D + (m₁)F = 0
   // const eq2_expr = nerdamer(`(-(2*A*${x1} + B*${y1} + D) / (B*${x1} + 2*C*${y1} + F)) = ${m1}`)
   // -2*A*${x1} + B*${y1} + D = B*${m1 * x1} + 2*C*${m1+y1} + F*${m1}
   // -2*A*${x1} + B*${y1 - m1*x1} + D = 2*C*${m1*y1} + F*${m1}
   // -2*A*${x1} + B*${y1 - m1*x1} + D - 2*C*${m1*y1} - F*${m1} = 0
   const eq2_expr = nerdamer(`-2*A*${x1} + B*${y1 - m1*x1} + D - 2*C*${m1*y1} - F*${m1} = 0`)
+  //             A        B           C         D  F
+  const eq2_g = [-2 * x1, y1 - m1*x1, -2*m1*y1, 1, -1 * m1, 0]
   const eq3_expr = nerdamer(`A*${x2**2} + B*${x2*y2} + C*${y2**2} + D*${x2} + F*${y2} = 1`)
+  const eq3_g = [x2**2, x2*y2, y2**2, x2, y2, 1]
   // const eq4_expr = nerdamer(`(-(2*A*${x2} + B*${y2} + D) / (B*${x2} + 2*C*${y2} + F)) = ${m2}`)
   const eq4_expr = nerdamer(`-2*A*${x2} + B*${y2 - m2*x2} - 2*C*${m2*y2} + D - F*${m2} = 0`)
+  //             A        B           C         D   F
+  const eq4_g = [-2 * x2, y2 - m2*x2, -2*m2*y2, 1, -1*m2, 0]
 
   const {x: Vx, y: Vy} = findV(x1, y1, m1, x2, y2, m2)
 
@@ -69,8 +77,21 @@ export const solver3 = (ctx, opts, args) => {
   const Dy = ((My - Vy) / MV) * (MV + MD) + Vy
 
   const eq5_expr = nerdamer(`A*${Dx**2} + B*${Dx*Dy} + C*${Dy**2} + D*${Dx} + F*${Dy} = 1`)
+  const eq5_g = [Dx**2, Dx*Dy, Dy**2, Dx, Dy, 1]
 
-  console.time("002")
+
+  console.time("001 guassian")
+  const results_g = gaussianElimination([
+    eq1_g,
+    eq2_g,
+    eq3_g,
+    eq4_g,
+    eq5_g
+  ]);
+  console.timeEnd("001 guassian")
+  const results_g2 = zipObject(['A', 'B', 'C', 'D', 'F'], results_g)
+
+  console.time("002 nerdamer")
   const results = solveEquations([
     eq1_expr.toString(),
     eq3_expr.toString(),
@@ -78,11 +99,11 @@ export const solver3 = (ctx, opts, args) => {
     eq4_expr.toString(),
     eq5_expr.toString(),
   ]/* , ['A', 'B', 'C', 'D', 'F'] */)
-  console.timeEnd("002")
-
+  console.timeEnd("002 nerdamer")
   console.log("002", results)
 
-  const eq = nerdamer(`A*x^2 + B*x*y + C*y^2 + D*x + F*y = 1`, results)
+  // const eq = nerdamer(`A*x^2 + B*x*y + C*y^2 + D*x + F*y = 1`, results)
+  const eq = nerdamer(`A*x^2 + B*x*y + C*y^2 + D*x + F*y = 1`, results_g2)
   const eqy = eq.solveFor('y')
   const yfns = map(eqy, (eqy) => eqy.buildFunction())
   const y = (x) => map(yfns, (fns) => fns(x))

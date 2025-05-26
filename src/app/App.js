@@ -8,6 +8,7 @@ import { Week2 } from '../week2';
 import { Week3 } from '../week3';
 import { EllipseSolver } from '../ellipse_solver';
 import { Notes } from '../week3/notes';
+import { Week5 } from '../week5';
 
 // const observerCallback: ResizeObserverCallback = (entries: ResizeObserverEntry[]) => {
 //   window.requestAnimationFrame((): void | undefined => {
@@ -60,6 +61,9 @@ function App() {
           <li>
             <Link to="/ellipse_solver">Ellipse Solver</Link>
           </li>
+          <li>
+            <Link to="/week5">Week 5</Link>
+          </li>
         </ul>
       </nav>
       <Routes>
@@ -68,6 +72,7 @@ function App() {
         <Route path="/week3/:part" element={<Week3 />} />
         <Route path="/notes1" element={<Notes />} />
         <Route path="/ellipse_solver" element={<EllipseSolver />} />
+        <Route path="/week5" element={<Week5 />} />
       </Routes>
     </div>
   );
